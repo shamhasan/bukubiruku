@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:money_tracker_app/auth/presentation/widget/auth_gate.dart';
 import 'package:money_tracker_app/transaction/data/datasource/receipt_scanner_service.dart';
 import 'package:money_tracker_app/transaction/domain/use_case/scan_receipt.dart';
@@ -20,10 +21,11 @@ import 'package:money_tracker_app/transaction/presentation/providers/transaction
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: ".env");
 
   await Supabase.initialize(
-    url: 'https://iabcqsuuahaduhkcqmyl.supabase.co',
-    anonKey: 'sb_publishable_uAJuBcp1eRTkrnR_nwSsaQ__mG2SgDn',
+    url: dotenv.env['SUPABASE_URL']!,
+    anonKey: dotenv.env["SUPABASE_ANON_KEY"]!,
   );
 
   final client = Supabase.instance.client;

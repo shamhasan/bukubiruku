@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_generative_ai/google_generative_ai.dart';
 
 class ReceiptScannerService {
-  final String apiKey = "AIzaSyCHzcjv9DZw8VX29miqCrgPtst8bTxFsv8";
-
+  final String apiKey = dotenv.env['GEMINI_API_KEY']!;
   Future<Map<String, dynamic>?> scanReceipt(File ImageFile) async {
     try {
       final model = GenerativeModel(apiKey: apiKey, model: 'gemini-2.5-flash');
@@ -60,7 +60,7 @@ class ReceiptScannerService {
       return null;
     } catch (e) {
       print("Error di Datasource Scanner: $e");
-      throw Exception("Gagal konek ke AI");
+      throw Exception("Gagal konek ke AI $e");
     }
   }
 }

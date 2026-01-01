@@ -1,6 +1,6 @@
 name: money_tracker_app
 description: "A new Flutter project."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -10,6 +10,7 @@ dependencies:
   fl_chart: ^1.1.1
   flutter:
     sdk: flutter
+  flutter_dotenv: ^6.0.0
   google_generative_ai: ^0.4.7
   image_picker: ^1.2.1
   pie_chart: ^5.4.0
@@ -24,3 +25,5 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - .env
