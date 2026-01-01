@@ -17,7 +17,7 @@ class ReceiptScannerService {
         {
           "description": (string, merchant name or store name or shor activity description),
           "amount": (numeric double, total payment amount),
-          "type": (string, either "Income" or "Expense"),
+          "type": (string, either "income" or "expense"),
           "category": (string, guess the category, if the type is "Income" : 
               'gaji','bonus',
               'hadiah',
