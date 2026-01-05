@@ -10,8 +10,8 @@
 ## 📱 Demo & Screenshots
 
 <div align="center">
-  <img src="assets/screenshots/home.png" width="250" alt="Home Screen" />
-  <img src="assets/screenshots/scan_demo.gif" width="250" alt="AI Scan Demo" />
+  <img src="assets/screenshots/homescreen.jpeg" width="250" alt="Home Screen" />
+  <img src="assets/screenshots/detailscreen.jpeg" width="250" alt="AI Scan Demo" />
 </div>
 
 ## 🧐 The Problem & Solution
