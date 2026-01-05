@@ -139,13 +139,23 @@ class _DetailScreenState extends State<DetailScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    PieChartIndicator(
-                                      title: "Pemasukan",
-                                      color: Colors.green,
+                                    Column(
+                                      children: [
+                                        PieChartIndicator(
+                                          title: "Pemasukan",
+                                          color: Colors.green,
+                                        ),
+                                        _buildCurrencyText(filteredincome, 0.45)
+                                      ],
                                     ),
-                                    PieChartIndicator(
-                                      title: "Pengeluaran",
-                                      color: Colors.red,
+                                    Column(
+                                      children: [
+                                        PieChartIndicator(
+                                          title: "Pengeluaran",
+                                          color: Colors.red,
+                                        ),
+                                        _buildCurrencyText(filteredexpense, 0.45)
+                                      ],
                                     ),
                                   ],
                                 ),
@@ -175,7 +185,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.bold,
-                                  fontFamily: 'Poppins',
                                 ),
                               ),
                             ),
@@ -199,7 +208,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                           style: TextStyle(
                                             fontSize: 16,
                                             color: Colors.grey,
-                                            fontFamily: 'Poppins',
                                           ),
                                         ),
                                       ),
@@ -232,7 +240,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                         filteredTransactions[index].description,
                                         style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontFamily: 'Poppins',
                                         ),
                                       ),
                                       subtitle: Text(
@@ -279,7 +286,6 @@ class _DetailScreenState extends State<DetailScreen> {
                                                     .toString(),
                                             style: TextStyle(
                                               fontSize: 12,
-                                              fontFamily: 'Poppins',
                                               color: Colors.grey,
                                             ),
                                           ),
@@ -320,7 +326,6 @@ class _DetailScreenState extends State<DetailScreen> {
             style: TextStyle(
               fontSize: 24 * scale,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Poppins',
             ),
           ),
           TextSpan(
@@ -328,7 +333,6 @@ class _DetailScreenState extends State<DetailScreen> {
             style: TextStyle(
               fontSize: 32 * scale,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Poppins',
             ),
           ),
         ],

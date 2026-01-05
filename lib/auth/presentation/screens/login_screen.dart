@@ -20,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.blue[50],
       body: Center(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 32),
@@ -34,20 +35,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     const SizedBox(height: 150),
                     Text(
-                      'Welcome To ',
+                      'Welcome back to',
                       style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins',
+                        fontSize: 20,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                     Text(
-                      'MoneyTracker',
+                      'BukuBiruKu',
                       style: TextStyle(
                         fontSize: 34,
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'Poppins',
-                        color: Colors.green,
+                        color: Colors.blue,
                       ),
                     ),
                   ],
@@ -114,8 +113,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
                 child: Text('Login', style: TextStyle(fontSize: 18)),
                 style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 32, vertical: 12),
-                  backgroundColor: Colors.green,
+                  padding: EdgeInsets.symmetric(horizontal: 32),
+                  backgroundColor: Colors.blueAccent,
                   foregroundColor: Colors.white,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -132,26 +131,23 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                       fontSize: 16,
                       color: Colors.black,
-                      fontFamily: 'Poppins',
                     ),
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.pushAndRemoveUntil(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute<void>(
                           builder: (BuildContext context) =>
                               const RegisterScreen(),
-                        ),
-                        ModalRoute.withName('/login'),
+                        )
                       );
                     },
                     child: Text(
                       'Register',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.green,
-                        fontFamily: 'Poppins',
+                        color: Colors.blue,
                       ),
                     ),
                   ),

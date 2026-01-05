@@ -9,7 +9,15 @@ class UserModel extends UserEntity {
     required double balance,
     required double totalIncome,
     required double totalExpense,
-  }) : super(id: id, email: email, userName: userName, balance: balance, totalIncome: totalIncome, totalExpense: totalExpense);
+  }) : super(
+         id: id,
+         email: email,
+         userName: userName,
+         balance: balance,
+         totalIncome: totalIncome,
+         totalExpense: totalExpense,
+       );
+
   factory UserModel.fromSupabase(User user) {
     return UserModel(
       id: user.id,
@@ -22,6 +30,13 @@ class UserModel extends UserEntity {
   }
 
   Map<String, dynamic> toJson() {
-    return {'id': id, 'email': email, 'username': userName, 'balance': balance, 'total_income': totalIncome, 'total_expense': totalExpense};
+    return {
+      'id': id,
+      'email': email,
+      'username': userName,
+      'balance': balance,
+      'total_income': totalIncome,
+      'total_expense': totalExpense,
+    };
   }
 }

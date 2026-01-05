@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -289,7 +288,6 @@ class _AddTransactionScreenState extends State<AddTransactionScreen> {
                                     'Tambah Transaksi',
                                     style: TextStyle(
                                       fontSize: 16,
-                                      fontFamily: "Poppins",
                                       color: Colors.green,
                                     ),
                                   ),

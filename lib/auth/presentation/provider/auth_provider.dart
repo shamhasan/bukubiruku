@@ -1,11 +1,17 @@
 import 'package:flutter/material.dart';
+
 import 'package:money_tracker_app/auth/domain/entities/user_entity.dart';
 import 'package:money_tracker_app/auth/domain/repository_interface/user_repository.dart';
+import 'package:money_tracker_app/auth/domain/use_case/checkSessionUseCase.dart';
 
 class AuthProvider extends ChangeNotifier {
   final UserRepository repository;
+  final checkSessionUseCase _checkSessionUseCase;
 
-  AuthProvider({required this.repository});
+  AuthProvider({
+    required this.repository,
+    required checkSessionUseCase checkSessionUseCase,
+  }) : _checkSessionUseCase = checkSessionUseCase;
 
   UserEntity? _currentUser;
   UserEntity? get currentUser => _currentUser;
@@ -18,6 +24,21 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
     try {
       _currentUser = await repository.getCurrentUser();
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
+
+  Future<void> checkSession() async {
+    _isLoading = true;
+    notifyListeners();
+
+    try {
+      final result = await _checkSessionUseCase.execute();
+      _currentUser = result;
+    } on Exception catch (e) {
+      throw Exception("Error getting session: $e");
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -48,9 +69,14 @@ class AuthProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateAmount(String userId, double balance, double totalIncome, double totalExpense) async {
+  Future<void> updateAmount(
+    String userId,
+    double balance,
+    double totalIncome,
+    double totalExpense,
+  ) async {
     await repository.updateAmount(userId, balance, totalIncome, totalExpense);
-    
+
     await loadCurrentUser();
   }
 }

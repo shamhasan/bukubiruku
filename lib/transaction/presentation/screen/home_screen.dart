@@ -144,7 +144,6 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                           style: TextStyle(
                             fontSize: 24,
                             fontWeight: FontWeight.bold,
-                            fontFamily: 'Poppins',
                           ),
                         ),
                         Padding(
@@ -190,7 +189,6 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.normal,
-                                        fontFamily: 'Poppins',
                                       ),
                                     ),
                                     OutlinedButton(
@@ -217,7 +215,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                                             style: TextStyle(
                                               fontSize: 13,
                                               fontWeight: FontWeight.normal,
-                                              fontFamily: 'Poppins',
+
                                               color: Colors.blue,
                                             ),
                                           ),
@@ -250,7 +248,6 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w600,
-                                            fontFamily: 'Poppins',
                                           ),
                                         ),
                                         SizedBox(height: 4),
@@ -272,7 +269,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontWeight: FontWeight.w600,
-                                            fontFamily: 'Poppins',
+
                                             color: Colors.grey[800],
                                           ),
                                         ),
@@ -315,7 +312,6 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                                     style: TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.bold,
-                                      fontFamily: 'Poppins',
                                     ),
                                   ),
                                 ),
@@ -341,7 +337,6 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                                               style: TextStyle(
                                                 fontSize: 16,
                                                 color: Colors.grey,
-                                                fontFamily: 'Poppins',
                                               ),
                                             ),
                                           ),
@@ -365,12 +360,15 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                                               ),
                                             );
                                           },
-                                          leading: LeadingIcon(type: transactions[index].type, category: transactions[index].category),
+                                          leading: LeadingIcon(
+                                            type: transactions[index].type,
+                                            category:
+                                                transactions[index].category,
+                                          ),
                                           title: Text(
                                             transactions[index].description,
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
-                                              fontFamily: 'Poppins',
                                             ),
                                           ),
                                           subtitle: Text(
@@ -416,7 +414,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
                                                         .toString(),
                                                 style: TextStyle(
                                                   fontSize: 12,
-                                                  fontFamily: 'Poppins',
+
                                                   color: Colors.grey,
                                                 ),
                                               ),
@@ -445,11 +443,7 @@ class _HomeScreenContentState extends State<HomeScreenContent> {
 }
 
 class LeadingIcon extends StatelessWidget {
-  const LeadingIcon({
-    super.key,
-    required this.type,
-    required this.category,
-  });
+  const LeadingIcon({super.key, required this.type, required this.category});
 
   final String type;
   final String category;
@@ -569,19 +563,11 @@ Widget _buildCurrencyText(double amount, double scale) {
       children: [
         TextSpan(
           text: "Rp",
-          style: TextStyle(
-            fontSize: 24 * scale,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Poppins',
-          ),
+          style: TextStyle(fontSize: 24 * scale, fontWeight: FontWeight.bold),
         ),
         TextSpan(
           text: _formatNumber(amount),
-          style: TextStyle(
-            fontSize: 32 * scale,
-            fontWeight: FontWeight.bold,
-            fontFamily: 'Poppins',
-          ),
+          style: TextStyle(fontSize: 32 * scale, fontWeight: FontWeight.bold),
         ),
       ],
     ),

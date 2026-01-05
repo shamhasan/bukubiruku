@@ -60,7 +60,6 @@ class UserRemoteDatasource {
         ),
       );
     } on Exception catch (e) {
-      print("Kamu ada error disini mok: $e");
       throw Exception('Update amount failed: $e');
     }
   }
