@@ -1,17 +1,19 @@
 import 'dart:io';
 
 import 'package:money_tracker_app/transaction/data/datasource/receipt_scanner_service.dart';
+import 'package:money_tracker_app/transaction/data/datasource/transaction_local_datasource.dart';
 import 'package:money_tracker_app/transaction/data/datasource/transaction_remote_datasource.dart';
 import 'package:money_tracker_app/transaction/data/entities/transaction_model.dart';
 import 'package:money_tracker_app/transaction/domain/entities/transaction.dart';
 import 'package:money_tracker_app/transaction/domain/repository_interface/transaction_repository.dart';
 
 class TransactionRepositoryImplementation implements TransactionRepository {
-  final TransactionRemoteDatasource remoteDatasource;
+  // final TransactionRemoteDatasource remoteDatasource;
   final ReceiptScannerService scannerService;
+  final TransactionLocalDatasource localDatasource;
 
   TransactionRepositoryImplementation({
-    required this.remoteDatasource,
+    required this.localDatasource,
     required this.scannerService,
   });
 
@@ -27,7 +29,7 @@ class TransactionRepositoryImplementation implements TransactionRepository {
       transactionDate: transaction.transactionDate,
     );
 
-    return await remoteDatasource.addTransaction(transactionModel);
+    return await localDatasource.addTransaction(transactionModel);
   }
 
   @override
@@ -42,20 +44,20 @@ class TransactionRepositoryImplementation implements TransactionRepository {
       transactionDate: transaction.transactionDate,
     );
 
-    // Tetap void, sesuai permintaan
-    await remoteDatasource.updateTransaction(transactionModel);
+    
+    await localDatasource.updateTransaction(transactionModel);
   }
 
   @override
   Future<void> deleteTransaction(String id) async {
-    // Tetap void, sesuai permintaan
-    await remoteDatasource.deleteTransaction(id);
+    
+    await localDatasource.deleteTransaction(id);
   }
 
   @override
   // SATU-SATUNYA PERUBAHAN PENTING: Tambah parameter userId
   Future<List<Transaction>> getTransactions(String userId) async {
-    final transactionModels = await remoteDatasource.getTransaction(userId);
+    final transactionModels = await localDatasource.getTransaction(userId);
     return List<Transaction>.from(transactionModels);
   }
 

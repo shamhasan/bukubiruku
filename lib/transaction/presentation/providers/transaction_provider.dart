@@ -72,7 +72,6 @@ class TransactionProvider extends ChangeNotifier {
       return true;
     } catch (e) {
       _isLoading = false;
-      print("error mu $e");
       notifyListeners();
       return false;
     }
