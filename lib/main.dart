@@ -1,109 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:money_tracker_app/auth/domain/use_case/checkSessionUseCase.dart';
-import 'package:money_tracker_app/auth/presentation/widget/auth_gate.dart';
-import 'package:money_tracker_app/transaction/data/datasource/receipt_scanner_service.dart';
-import 'package:money_tracker_app/transaction/domain/use_case/scan_receipt.dart';
+import 'package:money_tracker_app/transaction/presentation/providers/transaction_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
-import 'package:money_tracker_app/auth/data/datasource/user_remote_datasource.dart';
-import 'package:money_tracker_app/auth/data/repository_implementation/user_repository_implementation.dart';
-import 'package:money_tracker_app/auth/domain/repository_interface/user_repository.dart';
-import 'package:money_tracker_app/auth/presentation/provider/auth_provider.dart';
-import 'package:money_tracker_app/transaction/data/datasource/transaction_remote_datasource.dart';
-import 'package:money_tracker_app/transaction/data/repository_implementation/transaction_repository_implementation.dart';
-import 'package:money_tracker_app/transaction/domain/repository_interface/transaction_repository.dart';
-import 'package:money_tracker_app/transaction/domain/use_case/add_transaction.dart';
-import 'package:money_tracker_app/transaction/domain/use_case/delete_transaction.dart';
-import 'package:money_tracker_app/transaction/domain/use_case/get_transactions.dart';
-import 'package:money_tracker_app/transaction/domain/use_case/update_transaction.dart';
-import 'package:money_tracker_app/transaction/presentation/providers/transaction_provider.dart';
+import 'package:money_tracker_app/injection_container.dart' as di;
+import 'package:money_tracker_app/auth/presentation/widget/auth_gate.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
+
+  await di.init();
 
   await Supabase.initialize(
     url: dotenv.env['SUPABASE_URL']!,
     anonKey: dotenv.env["SUPABASE_ANON_KEY"]!,
   );
 
-  final client = Supabase.instance.client;
-
-  runApp(
-    MultiProvider(
-      providers: [
-        // DATASOURCES
-        Provider<UserRemoteDatasource>(
-          create: (_) => UserRemoteDatasource(client: client),
-        ),
-        Provider<TransactionRemoteDatasource>(
-          create: (_) => TransactionRemoteDatasource(client: client),
-        ),
-        Provider<ReceiptScannerService>(create: (_) => ReceiptScannerService()),
-        // REPOSITORIES
-        Provider<UserRepository>(
-          create: (context) => UserRepositoryImplementation(
-            remoteDatasource: context.read<UserRemoteDatasource>(),
-          ),
-        ),
-        Provider<TransactionRepository>(
-          create: (context) => TransactionRepositoryImplementation(
-            remoteDatasource: context.read<TransactionRemoteDatasource>(),
-            scannerService: context.read<ReceiptScannerService>(),
-          ),
-        ),
-
-        // USECASES (Transaction)
-        Provider<GetTransactions>(
-          create: (context) => GetTransactions(
-            repository: context.read<TransactionRepository>(),
-          ),
-        ),
-        Provider<AddTransaction>(
-          create: (context) =>
-              AddTransaction(repository: context.read<TransactionRepository>()),
-        ),
-        Provider<UpdateTransaction>(
-          create: (context) => UpdateTransaction(
-            repository: context.read<TransactionRepository>(),
-          ),
-        ),
-        Provider<DeleteTransaction>(
-          create: (context) => DeleteTransaction(
-            repository: context.read<TransactionRepository>(),
-          ),
-        ),
-        Provider<ScanReceipt>(
-          create: (context) =>
-              ScanReceipt(repository: context.read<TransactionRepository>()),
-        ),
-
-        // PROVIDERS
-        ChangeNotifierProvider(
-          create: (context) => AuthProvider(
-            checkSessionUseCase: checkSessionUseCase(
-              context.read<UserRepository>(),
-            ),
-            repository: context.read<UserRepository>(),
-          ),
-        ),
-        ChangeNotifierProvider(
-          create: (context) => TransactionProvider(
-            getTransactionsUseCase: context.read<GetTransactions>(),
-            addTransactionUseCase: context.read<AddTransaction>(),
-            updateTransactionUseCase: context.read<UpdateTransaction>(),
-            deleteTransactionUseCase: context.read<DeleteTransaction>(),
-            scanReceiptUseCase: context.read<ScanReceipt>(),
-          ),
-        ),
-      ],
-      child: const MainApp(),
-    ),
-  );
-  //  MainApp());
+  runApp(const MainApp());
 }
 
 class MainApp extends StatelessWidget {
@@ -112,13 +28,16 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    return MaterialApp(
-      title: "BukuBiruKu",
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        textTheme: GoogleFonts.poppinsTextTheme(textTheme),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => di.sl<TransactionProvider>()),
+      ],
+      child: MaterialApp(
+        title: "BukuBiruKu",
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(textTheme: GoogleFonts.poppinsTextTheme(textTheme)),
+        home: AuthGate(),
       ),
-      home: AuthGate(),
     );
   }
 }

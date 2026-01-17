@@ -1,8 +1,7 @@
-import 'package:money_tracker_app/transaction/data/entities/transaction_model.dart';
-import 'package:money_tracker_app/transaction/domain/entities/transaction.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
 
+import 'package:money_tracker_app/transaction/data/entities/transaction_model.dart';
 
 class TransactionRemoteDatasource {
   final SupabaseClient client;
@@ -63,9 +62,4 @@ class TransactionRemoteDatasource {
       throw Exception('Failed to delete transaction: $e');
     }
   }
-
-  // Future<TransactionModel?> scanReceipt(String imageUrl) async {
-    
-  //   return null;
-  // }
 }

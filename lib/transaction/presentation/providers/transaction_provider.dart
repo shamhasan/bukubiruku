@@ -35,7 +35,7 @@ class TransactionProvider extends ChangeNotifier {
 
   void setUserId(String? id) {
     _userId = id;
-    notifyListeners(); // Opsional, kalau ada UI yg berubah krn user id
+    notifyListeners();
   }
 
   Future<void> fetchTransactions() async {
