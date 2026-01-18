@@ -1,6 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:money_tracker_app/auth/presentation/provider/auth_provider.dart';
 import 'package:money_tracker_app/transaction/domain/entities/transaction.dart';
 import 'package:money_tracker_app/transaction/presentation/providers/transaction_provider.dart';
@@ -396,14 +395,6 @@ class _DetailScreenState extends State<DetailScreen> {
 
   OutlinedButton _filterButton(String title) {
     bool _isSelected = _selectedFilter == title;
-    List<Transaction> filteredTransactions;
-    final now = DateTime.now();
-
-    final allTransactions = Provider.of<TransactionProvider>(
-      context,
-      listen: false,
-    ).transactions;
-
     return OutlinedButton(
       style: OutlinedButton.styleFrom(
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),

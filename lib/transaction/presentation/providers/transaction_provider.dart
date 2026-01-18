@@ -6,6 +6,7 @@ import 'package:money_tracker_app/transaction/domain/use_case/get_transactions.d
 import 'package:money_tracker_app/transaction/domain/use_case/scan_receipt.dart';
 import 'package:money_tracker_app/transaction/domain/use_case/update_transaction.dart';
 
+
 class TransactionProvider extends ChangeNotifier {
   final AddTransaction addTransactionUseCase;
   final GetTransactions getTransactionsUseCase;

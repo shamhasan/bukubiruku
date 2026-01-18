@@ -25,7 +25,7 @@ class TransactionLocalDatasourceImpl implements TransactionLocalDatasource {
       }
       await database.insert(
         "transactions",
-        transaction.toJson(),
+        data,
         conflictAlgorithm: ConflictAlgorithm.replace,
       );
       return true;
@@ -64,7 +64,7 @@ class TransactionLocalDatasourceImpl implements TransactionLocalDatasource {
       await database.update(
         "transactions",
         transaction.toJson(),
-        where: "${transaction.id} = ?",
+        where: "id = ?",
         whereArgs: [transaction.id],
       );
     } catch (e) {

@@ -50,7 +50,7 @@ class UserRemoteDatasource {
     double totalExpense,
   ) async {
     try {
-      final response = await client.auth.updateUser(
+       await client.auth.updateUser(
         UserAttributes(
           data: {
             'balance': balance,

@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:money_tracker_app/transaction/data/datasource/receipt_scanner_service.dart';
 import 'package:money_tracker_app/transaction/data/datasource/transaction_local_datasource.dart';
-import 'package:money_tracker_app/transaction/data/datasource/transaction_remote_datasource.dart';
 import 'package:money_tracker_app/transaction/data/entities/transaction_model.dart';
 import 'package:money_tracker_app/transaction/domain/entities/transaction.dart';
 import 'package:money_tracker_app/transaction/domain/repository_interface/transaction_repository.dart';
@@ -55,7 +54,6 @@ class TransactionRepositoryImplementation implements TransactionRepository {
   }
 
   @override
-  // SATU-SATUNYA PERUBAHAN PENTING: Tambah parameter userId
   Future<List<Transaction>> getTransactions(String userId) async {
     final transactionModels = await localDatasource.getTransaction(userId);
     return List<Transaction>.from(transactionModels);

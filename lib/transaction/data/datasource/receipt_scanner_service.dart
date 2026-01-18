@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -59,7 +60,7 @@ class ReceiptScannerService {
       }
       return null;
     } catch (e) {
-      print("Error di Datasource Scanner: $e");
+      log("Error di Datasource Scanner: $e", name: "AiService error");
       throw Exception("Gagal konek ke AI $e");
     }
   }
